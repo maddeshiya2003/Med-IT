@@ -152,6 +152,8 @@ export const logoutAdmin = catchAsyncError(async (req,res,next) => {
     });
 })
 
+// create saprate route for logout due to token is assign with different named +patient token +doctor token +admin token 
+
 // use for logout the patient by removing the jwt token
 export const logoutPatient = catchAsyncError(async (req,res,next) => {
     res
@@ -186,7 +188,8 @@ export const addNewDoctor = catchAsyncError(async(req,res,next) => {
     if(!firstName || !lastName || !email || !phone || !password|| !nic || !dob || !gender ){ //if any daya can't get
         return next(new ErrorHandler("Please Fill Full Form!",400));
     }
-
+    
+    // in this isRegistered variable, there are store the user
     const isRegistered = await User.findOne({email}) // find user is already exist in db or not
     
     if(isRegistered){ //if any doctor is already gets or exist then return error
@@ -195,7 +198,8 @@ export const addNewDoctor = catchAsyncError(async(req,res,next) => {
 
     const cloudinaryResponse = await cloudinary.uploader.upload(docAvatar.tempFilePath); // after upload the file on cloudnary, 
  
-    // console.log(cloudinaryResponse); // some output of cloudnary respponse
+    // console.log(cloudinaryResponse); 
+    // some output of cloudnary respponse
     // {
         // asset_id: '88a00f7aafa2ebe750078d7533334f03',
         // public_id: 'rt83ee40dscwgxj0cn8f',
