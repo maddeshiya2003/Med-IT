@@ -1,4 +1,4 @@
-// this file use for authentication of admin to proceed further process if not admin then it not allow to procede further any process and send msg that you not allow fir this request 
+// this file use for authentication of admin, patient and doctor to proceed further process if not admin then it not allow to procede further any process and send msg that you not allow fir this request 
 
 import {catchAsyncError} from "./catchAsyncError.js";
 import {User}  from "../models/userShema.js"

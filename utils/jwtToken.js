@@ -1,9 +1,13 @@
 // this generateToken function take user info, message which render on user,
 //  status code ans requset api from which route, the request comes 
 
+// it takes 4 parameters 1) user : which user is generate token 
+                     //  2) message : 
+                     //  3) statusCode : 
+                     //  4) res :
 export const generateToken = (user, message, statusCode, res) => {
 
-    const token = user.generateJsonWebToken(); // use to generate token and this function define in user schema tha why user variable has access of thaat function
+    const token = user.generateJsonWebToken(); // use to generate token and this function define in user schema tha why user variable has access of that function
 
     let cookieName = "patientToken"; // variable for token name and has already name for patient thats why we noot check for patient
     if(user.role === "Admin")   cookieName="adminToken"; //if user is admin

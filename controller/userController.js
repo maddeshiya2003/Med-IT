@@ -86,7 +86,7 @@ export const login = catchAsyncError(async(req,res,next) => {
 export const addNewAdmin = catchAsyncError(async(req,res,next) => {
     
     const {firstName, lastName, email, phone, password, nic, dob, gender } = req.body; // get data from req body
-    console.log(firstName, lastName, email, phone, password, nic, dob, gender );
+    
     if(!firstName || !lastName || !email || !phone || !password|| !nic || !dob || !gender ){ //if any daya can't get
         return next(new ErrorHandler("Please Fill Full Form!",400));
     }
@@ -119,9 +119,8 @@ export const addNewAdmin = catchAsyncError(async(req,res,next) => {
 
 })
 
-// get all doctor
+// get all doctor form database
 export const getAllDoctor = catchAsyncError(async(req,res,next) => {
-    // get all doctor form database
     const doctors = await User.find({role:"Doctor"});
     res.status(200).json({
         success:true,
@@ -138,6 +137,10 @@ export const getUserDetail = catchAsyncError(async(req,res,next) => {
     });
 })
 
+
+// create saprate route for logout due to token is assign with different named +patient token +doctor token +admin token 
+
+
 // use for logout the admin by removing the jwt token
 export const logoutAdmin = catchAsyncError(async (req,res,next) => {
     res
@@ -151,8 +154,6 @@ export const logoutAdmin = catchAsyncError(async (req,res,next) => {
         message:"Admin Logged Out Successfully!"
     });
 })
-
-// create saprate route for logout due to token is assign with different named +patient token +doctor token +admin token 
 
 // use for logout the patient by removing the jwt token
 export const logoutPatient = catchAsyncError(async (req,res,next) => {
@@ -171,7 +172,7 @@ export const logoutPatient = catchAsyncError(async (req,res,next) => {
 // add new doctor
 export const addNewDoctor = catchAsyncError(async(req,res,next) => {
 
-    if(!req.files || Object.keys(req.files).length === 0){//if no any object or data present in req.files objects
+    if(!req.files || Object.keys(req.files).length === 0){//if no any object or data present in req.files objects means no file wwill uploades
         return next(new ErrorHandler("Doctor Avatar Required!",400));
     }
     

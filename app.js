@@ -13,18 +13,23 @@ const app = express();
 
 config({path:"./config/config.env"}) // use for load variable from dotenv file
 
+
+
+
 // ---------------------------- Some middleware are discribe below ----------------------------
 
-// use for connecting backend to frontend 
-app.use(cors({
+app.use(cors({      // use for connecting backend to frontend 
     origin:[process.env.FRONTEND_URL,process.env.DASHBOARD_URL], //connect with 2 ports 
     methods:["GET","PUT","POST","DELETE"], // method which are use to connect with frontend
-    credentials:true //accept credential that come from frontrnd
+    credentials:true //accept credential that come from frontend
 }));
 
 app.use(cookieParser()); // to get cookies(small piece of data of user like session, authentication e.t.c.) that come from particular http request.
 app.use(express.json()); // to convert or parse json data (which is comes from user in req.body) into string
 app.use(express.urlencoded({extended:true})); // to make available user submitted data into req.body
+
+
+
 
 // npm package that is handle for file upload by user input
 app.use(fileUpload({
@@ -32,12 +37,15 @@ app.use(fileUpload({
     tempFileDir : '/tmp/'
 }));
 
+//********** router routes *********
 app.use("/api/v1/message",messageRouter); // message routes 
 app.use("/api/v1/user",userRouter); // message routes
 app.use("/api/v1/appointment",appointmentRouter); // appointment routes
 
 dbConnection(); //stablish connection to database
 
+
+//use error middleware always at end
 app.use(errorMiddleware); // if any error in req then it invoke middleware to handle the error and also this middleware check for all request 
 
 export default app;

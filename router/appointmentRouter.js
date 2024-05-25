@@ -4,9 +4,16 @@ import {isPatientAuthenticated,isAdminAuthenticated, isDoctorAuthenticated} from
 
 const router = express.Router();
 
-router.post("/post", isPatientAuthenticated, postAppointment);
+// book appointment
+router.post("/post", isPatientAuthenticated, postAppointment);  // only book by patient 
+
+// get all appointment 
 router.get("/getall", isAdminAuthenticated, getAllAppointment); // add isDoctorAuthenticated middleware in furture
+
+// routes for update the status of appointment from pending to accepted or rejected or again pending 
 router.put("/updatestatus/:id", isAdminAuthenticated, updateAppointmentStatus); // add isDoctorAuthenticated middleware in furture
+
+// route for delete the appointment 
 router.delete("/deleteappointment/:id", isAdminAuthenticated, deleteAppointment); // add isDoctorAuthenticated middleware in furture
 
 export default router;
